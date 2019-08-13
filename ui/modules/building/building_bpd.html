@@ -1,0 +1,39 @@
+<div class="content" page-title="智能用电">
+    <div class="topMenu">
+    	<div class="glyphicon glyphicon-menu-left pull-left" ng-click="gotoSummary();"></div>
+    	<h3>智能用电</h3>
+    </div>
+
+    <div class="mainbody home buildingBPD">
+        <div class="form-inline form-withmargin">
+            <div class="btn-group btn-group-justified" role="group">
+                <a class="" ng-class="datas.opt.state == 1 ? '--primary' : ''" ng-click="reset_datas(this, 1);">强电管理</a>
+                <a class="" ng-class="datas.opt.state == 2 ? '--primary' : ''" ng-click="reset_datas(this, 2);">弱电管理</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="summaryOuter" ng-show="datas.opt.state == 1" ng-repeat="d in datas.building.menu">
+			<h4>{{ d.name }}</h4>
+         	<table class="table">
+         		<thead>
+         			<tr>
+         				<th>设备参数</th>
+         				<th>参数值</th>
+         			</tr>
+         		</thead>
+         		<tbody>
+         			<tr ng-repeat="f in d.parameters">
+         				<td>{{ f.name }}</td>
+         				<td>{{ f.value }}</td>
+         			</tr>
+         		</tbody>
+         	</table>
+        </div>
+
+        <div class="" ng-show="datas.opt.state == 2">
+            <p> </p>
+            <p class="text-center">没有数据</p>
+        </div>
+    </div>
+</div>

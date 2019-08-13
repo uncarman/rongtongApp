@@ -1,0 +1,70 @@
+<div class="content" page-title="门禁管理">
+    <div class="topMenu">
+    	<div class="glyphicon glyphicon-menu-left pull-left" ng-click="gotoSummary();"></div>
+    	<h3>门禁管理</h3>
+    </div>
+
+    <div class="mainbody buildingMJ">
+		<h4 class="media-heading" ng-bind="datas.building.name"></h4>
+
+		<!-- <ul class="category-head">
+			<li ng-repeat="f in datas.building.menu" 
+				ng-class="datas.topMenuSelected == $index ? 'on' : ''"
+				ng-click="changeType($index);"
+				ng-bind="f[0]"></li>
+		</ul> -->
+
+		<ul class="category-head category-head-sub">
+			<li ng-repeat="f in datas.building.menu[datas.topMenuSelected][2]"
+				ng-class="datas.subMenuSelected == $index ? 'on' : ''"
+				ng-click="changeFloor($index);"
+				ng-bind="f"></li>
+		</ul>
+
+		<div class="summaryOuter">
+			<table class="table">
+				<thead>
+				<tr>
+					<th>房间</th>
+					<th>设备名称</th>
+					<th>设备描述</th>
+					<th>设备类型</th>
+					<th ng-repeat-start="f in datas.building.menu[datas.topMenuSelected][4]" ng-repeat-end>{{ f }}</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="f in datas.devicePoints">
+					<td>{{ f.room }}</td>
+					<td>{{ f.name }}</td>
+					<td>{{ f.description }}</td>
+					<td>{{ f.type_name }}</td>
+					<td ng-repeat-start="p in datas.building.menu[datas.topMenuSelected][4]" ng-repeat-end>{{ f.keyed_parameters[p].value }}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<div class="curFloor">
+			<span class="icons point_on" ng-repeat="p in datas.devicePoints" ng-style="p.style"
+				ng-class="p.name == datas.deviceDetail[0].value ? 'point_on_selected' : ''"
+				ng-click="viewDeviceDetail(p);"></span>
+			<img id="floorBg" ng-src="{{datas.currentFloorBg}}" />
+		</div>
+
+		<div class="details">
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="f in datas.deviceDetail">
+					<span ng-bind="f.name" class="pull-left"></span>
+					<div class="pull-right">
+						<span ng-bind="f.value"></span>
+						<span ng-if="f.state_explain">({{ f.state_explain }})</span>
+					</div>
+					<div class="clearfix"></div>
+				</li>
+			</ul>
+		</div>
+
+    </div>
+</div>

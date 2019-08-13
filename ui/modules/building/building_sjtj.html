@@ -1,0 +1,237 @@
+<div class="content" page-title="数据统计">
+    <div class="topMenu">
+        <div class="glyphicon glyphicon-menu-left pull-left" ng-click="gotoSummary();"></div>
+        <div class="glyphicon glyphicon-cog pull-right" ng-click="displaySettings(1);" data-toggle="modal"
+             data-target="#myModal"></div>
+        <h3>数据统计</h3>
+    </div>
+
+    <div class="mainbody buildingSJTJ">
+        <ul class="category-head category-head-center">
+            <li ng-class="datas.menuSelected == 0 ? 'on' : ''"
+                ng-click="changeTab(0);">费用统计
+            </li>
+            <li ng-class="datas.menuSelected == 1 ? 'on' : ''"
+                ng-click="changeTab(1);">费用分析
+            </li>
+            <li ng-class="datas.menuSelected == 2 ? 'on' : ''"
+                ng-click="changeTab(2);">平均能耗
+            </li>
+        </ul>
+
+        <div class="clearfix">&nbsp;</div>
+
+        <div ng-show="datas.menuSelected == 0">
+            <div class="echart" id="chart" style="height: 250px;"></div>
+        </div>
+        <div ng-show="datas.topMenuSelected == 1">
+            <div class="echart"></div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div ng-show="datas.menuSelected == 0">
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>能耗类型</th>
+                        <th>费用总计</th>
+                        <th>总体占比</th>
+                        <th>环比</th>
+                        <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>电</th>
+                        <td>{{ datas.building.data_stats.electricity.fee.sum }}</td>
+                        <td>{{ datas.building.data_stats.electricity.fee.rate }}%</td>
+                        <td>{{ datas.building.data_stats.electricity.fee.mom }}%</td>
+                        <td>{{ datas.building.data_stats.electricity.fee.yoy }}%</td>
+                    </tr>
+                    <tr>
+                        <th>水</th>
+                        <td>{{ datas.building.data_stats.water.fee.sum }}</td>
+                        <td>{{ datas.building.data_stats.water.fee.rate }}%</td>
+                        <td>{{ datas.building.data_stats.water.fee.mom }}%</td>
+                        <td>{{ datas.building.data_stats.water.fee.yoy }}%</td>
+                    </tr>
+                    <tr>
+                        <th>燃气</th>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <th>蒸汽量</th>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-show="datas.menuSelected == 1">
+            <h2>电高值分析</h2>
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>费用</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in datas.building.data_stats.min_and_max.electricity.max">
+                        <td>{{ d.date_time }}</td>
+                        <th>{{ d.sum }}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <h2>电低值分析</h2>
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>费用</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in datas.building.data_stats.min_and_max.electricity.min">
+                        <td>{{ d.date_time }}</td>
+                        <th>{{ d.sum }}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>水高值分析</h2>
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>费用</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in datas.building.data_stats.min_and_max.water.max">
+                        <td>{{ d.date_time }}</td>
+                        <th>{{ d.sum }}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <h2>水低值分析</h2>
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>费用</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="d in datas.building.data_stats.min_and_max.water.min">
+                        <td>{{ d.date_time }}</td>
+                        <th>{{ d.sum }}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-show="datas.menuSelected == 2">
+            <div class="summaryOuter">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>能耗类型</th>
+                        <th>监测面积</th>
+                        <th>单位平面能耗</th>
+                        <th>环比</th>
+                        <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>电</th>
+                        <td>{{ datas.building.data_stats.building_area }}</td>
+                        <td>{{ datas.building.data_stats.electricity.sum.sum }}</td>
+                        <td>{{ datas.building.data_stats.electricity.sum.mom }}%</td>
+                        <td>{{ datas.building.data_stats.electricity.sum.yoy }}%</td>
+                    </tr>
+                    <tr>
+                        <th>水</th>
+                        <td>{{ datas.building.data_stats.building_area }}</td>
+                        <td>{{ datas.building.data_stats.water.sum.sum }}</td>
+                        <td>{{ datas.building.data_stats.water.sum.mom }}%</td>
+                        <td>{{ datas.building.data_stats.water.sum.yoy }}%</td>
+                    </tr>
+                    <tr>
+                        <th>燃气</th>
+                        <td>{{ datas.building.data_stats.building_area }}</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                    </tr>
+                    <tr>
+                        <th>蒸汽量</th>
+                        <td>{{ datas.building.data_stats.building_area }}</td>
+                        <td>0</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="dialog ng-hide" ng-show="datas.show_settings">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title form-inline">
+                            <em>设置条件</em>
+                            <div class="glyphicon glyphicon-remove pull-right" ng-click="displaySettings(0);"></div>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    开始时间:
+                                </div>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="date" ng-model="datas.newOpts.fromDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    结束时间:
+                                </div>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="date" ng-model="datas.newOpts.toDate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <button class="btn btn-block --primary" ng-click=refreshDatas();>更新</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

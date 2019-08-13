@@ -1,0 +1,231 @@
+<div class="content" page-title="能耗计量">
+    <div class="topMenu">
+        <div class="glyphicon glyphicon-menu-left pull-left" ng-click="gotoSummary();"></div>
+        <div class="glyphicon glyphicon-cog pull-right" ng-click="displaySettings(1);" data-toggle="modal"
+             data-target="#myModal"></div>
+        <h3>能耗计量</h3>
+    </div>
+
+    <div class="mainbody buildingNHJL">
+        <ul class="category-head category-head-center">
+            <li class="on" ng-click="changeTab(0);">监测分析</li>
+            <li ng-click="gotoPage('sjtj');">数据统计</li>
+            <div class="clearfix"></div>
+        </ul>
+
+        <p class="clearfix">&nbsp;</p>
+
+        <h2>
+            总能耗概况
+            <em class="pull-right">{{ datas.newOpts.fromDate }}-{{ datas.newOpts.toDate }}</em>
+        </h2>
+
+        <div class="summaryOuter">
+            <table class="table summaryNH">
+                <tbody>
+                <!-- 电 -->
+                <tr ng-click="gotoDetail('electricity');">
+                    <th>总用电量</th>
+                    <td>{{ datas.building.stats.electricity.curr.sum }}kwh</td>
+                    <th>环比</th>
+                    <td>{{ datas.building.stats.electricity.mom.sum_rate }}%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>{{ datas.building.stats.electricity.yoy.sum_rate }}%</td>
+                </tr>
+                <tr ng-click="gotoDetail('electricity');">
+                    <th>能耗密度</th>
+                    <td>{{ datas.building.stats.electricity.curr.density }}kwh</td>
+                    <th>环比</th>
+                    <td>{{ datas.building.stats.electricity.mom.density_rate }}%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>{{ datas.building.stats.electricity.yoy.density_rate }}%</td>
+                </tr>
+                <tr ng-click="gotoDetail('electricity');">
+                    <th>费用</th>
+                    <td>{{ datas.building.stats.electricity.curr.fee }}</td>
+                    <th>环比</th>
+                    <td>{{ datas.building.stats.electricity.mom.fee_rate }}%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>{{ datas.building.stats.electricity.yoy.fee_rate }}%</td>
+                </tr>
+
+                <!-- 水 -->
+                <tr ng-click="gotoDetail('water');">
+                    <th>总用水量</th>
+                    <td>{{ datas.building.stats.water.curr.sum }}吨</td>
+                    <th>环比</th>
+                    <td>{{ datas.building.stats.water.mom.sum_rate }}%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>{{ datas.building.stats.water.yoy.sum_rate }}%</td>
+                </tr>
+                <tr ng-click="gotoDetail('water');">
+                    <th>费用</th>
+                    <td>{{ datas.building.stats.water.curr.fee }}</td>
+                    <th>环比</th>
+                    <td>{{ datas.building.stats.water.mom.fee_rate }}%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>{{ datas.building.stats.water.yoy.fee_rate }}%</td>
+                </tr>
+
+                <!-- 天然气 -->
+                <tr ng-click="gotoDetail('gas');">
+                    <th>总天然气量</th>
+                    <td>0</td>
+                    <th>环比</th>
+                    <td>0%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>0%</td>
+                </tr>
+                <tr ng-click="gotoDetail('gas');">
+                    <th>费用</th>
+                    <td>0</td>
+                    <th>环比</th>
+                    <td>0%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>0%</td>
+                </tr>
+
+                <!-- 蒸汽 -->
+                <tr ng-click="gotoDetail('vapour');">
+                    <th>总用蒸汽量</th>
+                    <td>0</td>
+                    <th>环比</th>
+                    <td>0%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>0%</td>
+                </tr>
+                <tr ng-click="gotoDetail('vapour');">
+                    <th>费用</th>
+                    <td>0</td>
+                    <th>环比</th>
+                    <td>0%</td>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <td>0%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="echart" id="echart" style="height: 250px;"></div>
+
+        <div class="clearfix"></div>
+
+        <div class="summaryOuter">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>总用电量</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <th>能耗密度</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <th>费用</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <th>总用水量</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <th>总天然气量</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                    <th>总用蒸汽量</th>
+                    <th>环比</th>
+                    <th>{{ datas.newOpts.compareYear }}年同比</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="d in datas.building.stats.detail">
+                    <th>{{ d[0] }}</th>
+                    <td>{{ d[1] }}kwh</td>
+                    <td>{{ d[2] }}%</td>
+                    <td>{{ d[3] }}%</td>
+                    <td>{{ d[4] }}</td>
+                    <td>{{ d[5] }}%</td>
+                    <td>{{ d[6] }}%</td>
+                    <td>{{ d[7] }}</td>
+                    <td>{{ d[8] }}%</td>
+                    <td>{{ d[9] }}%</td>
+                    <td>{{ d[10] }}</td>
+                    <td>{{ d[11] }}%</td>
+                    <td>{{ d[12] }}%</td>
+                    <td>0</td>
+                    <td>0%</td>
+                    <td>0%</td>
+                    <td>0</td>
+                    <td>0%</td>
+                    <td>0%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dialog ng-hide" ng-show="datas.show_settings">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title form-inline">
+                            <em>设置条件</em>
+                            <div class="glyphicon glyphicon-remove pull-right" ng-click="displaySettings(0);"></div>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    开始时间:
+                                </div>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="date" ng-model="datas.newOpts.fromDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    结束时间:
+                                </div>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="date" ng-model="datas.newOpts.toDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    查看方式:
+                                </div>
+                                <div class="col-sm-10">
+                                    <select class="form-control" ng-model="datas.newOpts.timeType">
+                                        <option selected="selected" value="hour">逐日</option>
+                                        <option value="day">逐月</option>
+                                        <option value="month">逐年</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 row-title">
+                                    选择同比:
+                                </div>
+                                <div class="col-sm-10">
+                                    <select class="form-control" ng-model="datas.newOpts.compareYear">
+                                        <option selected="selected">2018</option>
+                                        <option>2017</option>
+                                        <option>2016</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <button class="btn btn-block --primary" ng-click=refreshDatas();>更新</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

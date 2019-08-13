@@ -1,0 +1,58 @@
+<div class="content buildingSummary">
+    <div class="topMenu">
+    	<div class="glyphicon glyphicon-menu-left pull-left" ng-click="gotoSummary();"></div>
+    	<h3>建筑详情</h3>
+    </div>
+    
+    <div class="media">
+        <div class="media-left">
+            <img class="media-object" ng-src="{{datas.building.img}}" style="width: 160px; height: 160px;">
+        </div>
+        <div class="media-body" ng-click="gotoDetail(datas.building.id);">
+            <h4 class="media-heading" ng-bind="datas.building.name"></h4>
+            <p ng-bind="datas.building.location + ' >'"></p>
+            <a ng-click="gotoDetail(datas.building.id);">查看更多</a>
+        </div>
+    </div>
+
+    <div class="mainbody">
+	    <ul class="list-group">
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'nhjl');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #43CDA9;" class="glyphicon glyphicon-signal"></div>
+				能耗计量
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'ntkt');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #EEC619;" class="glyphicon glyphicon-cd"></div>
+				暖通空调
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'bpd');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #7B7E83; " class="glyphicon glyphicon-random"></div>
+				智能用电
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'znzm');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #86B4C3;" class="glyphicon glyphicon-certificate"></div>
+				智能照明
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'mj');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #AE6516;" class="glyphicon glyphicon-adjust"></div>
+				门禁管理
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'xfjk');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: red;" class="glyphicon glyphicon-fire"></div>
+				消防监控
+			</li>
+			<li class="list-group-item" ng-click="gotoDetail(datas.building.id, 'bjcl');">
+				<div class="glyphicon glyphicon-menu-right pull-right"></div>
+				<div style="background-color: #FA5A81;" class="glyphicon glyphicon-bell"></div>
+				报警处理
+			</li>
+		</ul>
+
+	</div>
+</div>
