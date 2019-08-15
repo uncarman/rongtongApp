@@ -7,15 +7,15 @@
     <div class="mainbody buildingXFK">
 		<h4 class="media-heading" ng-bind="datas.building.name"></h4>
 
-		<!-- <ul class="category-head">
+		<ul class="category-head">
 			<li ng-repeat="f in datas.building.menu" 
 				ng-class="datas.topMenuSelected == $index ? 'on' : ''"
 				ng-click="changeType($index);"
 				ng-bind="f[0]"></li>
-		</ul> -->
+		</ul>
 
 		<ul class="category-head category-head-sub">
-			<li ng-repeat="f in datas.building.menu[2]" 
+			<li ng-repeat="f in datas.building.menu[datas.topMenuSelected][2]"
 				ng-class="datas.subMenuSelected == $index ? 'on' : ''"
 				ng-click="changeFloor($index);"
 				ng-bind="f"></li>

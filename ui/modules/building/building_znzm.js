@@ -13,11 +13,6 @@ define(function (require) {
             // pass
         });
 
-        var rate= 1;
-        var _x = -500;
-        var _y = -100;
-
-
         // 初始化数据
         var datas = {
             // 一级菜单选中状态
@@ -64,10 +59,13 @@ define(function (require) {
 
         $scope.changeType = function (ind) {
             console.log(ind);
-            $scope.datas.topMenuSelected = ind;
-            let type = $scope.datas.building.menu[ind];
-            console.log(type);
-            $scope.changeFloor($scope.datas.subMenuSelected);
+            if(ind != $scope.datas.topMenuSelected) {
+                $scope.datas.topMenuSelected = ind;
+                let type = $scope.datas.building.menu[ind];
+                console.log(type);
+                $scope.datas.subMenuSelected = 0;
+                $scope.changeFloor($scope.datas.subMenuSelected);
+            }
         }
 
         $scope.changeFloor = function (ind) {
@@ -81,6 +79,19 @@ define(function (require) {
             $scope.datas.currentFloorBg = settings.floorBgs[floor];
             $scope.datas.devicePoints = $scope.datas.building.menu[$scope.datas.topMenuSelected][3][floor];
             $scope.datas.devicePoints.map((point) => {
+                let deviceType = point.type == 'SXT' ? "摄像头" : (point.type == 'GY' ? "烟感" : "温感");
+
+                var rate= 1;
+                var _x = -500;
+                var _y = -100;
+
+                if (point.type != 'ZNZM') {
+                    rate= 0.9;
+                    _x = 0;
+                    _y = 0;
+                }
+
+
                 let p_x = parseInt((point.x_axis + _x) * scale * rate);
                 let p_y = parseInt((point.y_axis + _y) * scale * rate);
                 // console.log(point);

@@ -67,10 +67,13 @@ define(function (require) {
 
         $scope.changeType = function (ind) {
             console.log(ind);
-            $scope.datas.topMenuSelected = ind;
-            let type = $scope.datas.building.menu[ind];
-            console.log(type);
-            $scope.changeFloor($scope.datas.subMenuSelected);
+            if(ind != $scope.datas.topMenuSelected) {
+                $scope.datas.topMenuSelected = ind;
+                let type = $scope.datas.building.menu[ind];
+                console.log(type);
+                $scope.datas.subMenuSelected = 0;
+                $scope.changeFloor($scope.datas.subMenuSelected);
+            }
         }
 
         $scope.changeFloor = function (ind) {

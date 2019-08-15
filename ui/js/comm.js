@@ -18,8 +18,8 @@ define(function (require, exports, module) {
         msg_duration: 12, //弹出提示框持续时间, 单位:秒
         root: "",
 
-        domain: "http://energy-api.codecore.club/api/",  // 接口地址
-        cross_domain: false,
+        domain: "http://47.100.196.152:8062/api/",  // 接口地址
+        cross_domain: true,
         ajax_timeout: 30 * 1000, //ajax超时时间 (单位:毫秒)
 
         // 分页参数

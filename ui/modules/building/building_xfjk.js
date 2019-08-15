@@ -13,10 +13,6 @@ define(function (require) {
             // pass
         });
 
-        var rate= 1;
-        var _x = -500;
-        var _y = -100;
-
         // 初始化数据
         var datas = {
             // 一级菜单选中状态
@@ -49,7 +45,7 @@ define(function (require) {
             $scope.$apply(function () {
                 let menu = global.parseItemDataToMenu(res.data);
                 console.log(menu);
-                $scope.datas.building.menu = menu[0];
+                $scope.datas.building.menu = menu;
                 scale = $('#floorBg').width() / settings.photoMap.x;
                 $scope.changeFloor($scope.datas.subMenuSelected);
             });
@@ -63,9 +59,13 @@ define(function (require) {
 
         $scope.changeType = function (ind) {
             console.log(ind);
-            $scope.datas.topMenuSelected = ind;
-            let type = $scope.datas.building.menu[ind];
-            console.log(type);
+            if(ind != $scope.datas.topMenuSelected) {
+                $scope.datas.topMenuSelected = ind;
+                let type = $scope.datas.building.menu[ind];
+                console.log(type);
+                $scope.datas.subMenuSelected = 0;
+                $scope.changeFloor($scope.datas.subMenuSelected);
+            }
         }
 
         $scope.changeFloor = function (ind) {
@@ -74,17 +74,31 @@ define(function (require) {
                 $scope.datas.deviceDetail = [];
             }
             $scope.datas.subMenuSelected = ind;
-            let floor = $scope.datas.building.menu[2][ind];
+            let floor = $scope.datas.building.menu[$scope.datas.topMenuSelected][2][ind];
             console.log(floor);
             $scope.datas.currentFloorBg = settings.floorBgs[floor];
-            $scope.datas.devicePoints = $scope.datas.building.menu[3][floor];
+            $scope.datas.devicePoints = $scope.datas.building.menu[$scope.datas.topMenuSelected][3][floor];
             $scope.datas.devicePoints.map((point) => {
+
+                let deviceType = point.type == 'SXT' ? "摄像头" : (point.type == 'GY' ? "烟感" : "温感");
+
+                var rate= 1;
+                var _x = -500;
+                var _y = -100;
+
+                if (point.type == 'GY') {
+                    rate= 0.9;
+                    _x = 100;
+                    _y = 0;
+                } else if (point.type == 'GW') {
+                    rate= 0.9;
+                    _x = 100;
+                    _y = 0;
+                }
+
                 let p_x = parseInt((point.x_axis + _x) * scale * rate);
                 let p_y = parseInt((point.y_axis + _y) * scale * rate);
-                let deviceType = point.type == 'SXT' ? "摄像头" : (point.type == 'GY' ? "烟感" : "温感");
                 point.style = {"margin-left": +p_x + 'px', "margin-top": +p_y + 'px'};
-
-
                 return point;
             });
             console.log($scope.datas.devicePoints);
