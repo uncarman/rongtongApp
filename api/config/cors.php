@@ -13,9 +13,7 @@ return [
     */
 
     'supportsCredentials' => false,
-    'allowedOrigins' => [
-        'http://energy-front.test', 'http://energy.codecore.club'
-    ],
+    'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
